@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+const { json } = require("stream/consumers");
 
 const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
@@ -42,8 +43,8 @@ const server = http.createServer((req, res) => {
       // }
       const bodyObject = Object.fromEntries(params);
       console.log(bodyObject);
+      fs.writeFileSync("user.txt", JSON.stringify(bodyObject));
     });
-    fs.writeFileSync("user.txt", "Alok Kumar Giri");
     res.statusCode = 302;
     res.setHeader("Location", "/");
   }
